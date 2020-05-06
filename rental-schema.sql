@@ -10,8 +10,10 @@ CREATE TABLE "customer" (
   "street" varchar(40),
   "zipCode" int,
   "city" varchar(40),
-  PRIMARY KEY ("customerId")
+  PRIMARY KEY ("customerId"),
+	FOREIGN KEY ("transactionId") REFERENCES "transactions" ("transactionId")
 );
+
 
 CREATE INDEX "FK" ON  "customer" ("transactionId");
 
@@ -20,10 +22,10 @@ CREATE TABLE "actor" (
   "lastName" varchar(40),
   "filmId" char(12),
   "actorId" char(12),
-  PRIMARY KEY ("actorId")
+  PRIMARY KEY ("actorId"),
+	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId")
 );
 
-CREATE INDEX "FK" ON  "actor" ("filmId");
 
 CREATE TABLE "film" (
   "title" varchar(40),
@@ -35,7 +37,9 @@ CREATE TABLE "film" (
   "actorId" char(12),
   "directorId" char(12),
   "awards" varchar(40),
-  PRIMARY KEY ("storeid")
+  PRIMARY KEY ("filmId"),
+	FOREIGN KEY ("actorId") REFERENCES "actor" ("actorId"),
+	FOREIGN KEY ("directorId") REFERENCES "director" ("directorId")
 );
 
 CREATE INDEX "FK" ON  "film" ("filmId", "distributorId", "actorId", "directorId");

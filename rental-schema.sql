@@ -11,11 +11,9 @@ CREATE TABLE "customer" (
   "zipCode" int,
   "city" varchar(40),
   PRIMARY KEY ("customerId"),
-	FOREIGN KEY ("transactionId") REFERENCES "transactions" ("transactionId")
+	FOREIGN KEY ("transactionId") REFERENCES "transaction" ("transactionId")
 );
 
-
-CREATE INDEX "FK" ON  "customer" ("transactionId");
 
 CREATE TABLE "actor" (
   "firstName" varchar(40),
@@ -42,16 +40,15 @@ CREATE TABLE "film" (
 	FOREIGN KEY ("directorId") REFERENCES "director" ("directorId")
 );
 
-CREATE INDEX "FK" ON  "film" ("filmId", "distributorId", "actorId", "directorId");
-
 CREATE TABLE "director" (
   "firstName" varchar(40),
   "lastName" varchar(40),
   "filmId" char(12),
   "directorId" char(12)
+	PRIMARY KEY ("directorId"),
+	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId")
 );
 
-CREATE INDEX "FK" ON  "director" ("filmId");
 
 CREATE TABLE "employee" (
   "employeeId" char(12),
@@ -66,18 +63,19 @@ CREATE TABLE "employee" (
   "street" varchar(40),
   "zipCode" int,
   "city" varchar(40),
-  PRIMARY KEY ("employeeId")
+  PRIMARY KEY ("employeeId"),
+	FOREIGN KEY ("transactionId") REFERENCES "transaction" ("transactionId")
 );
-
-CREATE INDEX "FK" ON  "employee" ("transactionId");
 
 CREATE TABLE "genre" (
   "category" varchar(40),
   "genreId" char(12),
+	"filmId" char(12),
   PRIMARY KEY ("genreId")
+	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId")
 );
 
-CREATE TABLE "transactions" (
+CREATE TABLE "transaction" (
   "transactionId" char(12),
   "storeId" char(12),
   "transactionDate" date,
@@ -88,12 +86,14 @@ CREATE TABLE "transactions" (
   "employeeId" char(12),
   "paymentAmount" int,
   "lateFees" int,
-  PRIMARY KEY ("transactionId")
+  PRIMARY KEY ("transactionId"),
+	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId"),
+	FOREIGN KEY ("customerId") REFERENCES "customer" ("customerId"),
+	FOREIGN KEY ("employeeId") REFERENCES "employee" ("employeeId")
 );
 
-CREATE INDEX "FK" ON  "transactions" ("storeId", "filmId", "customerId", "employeeId");
 
-CREATE TABLE "returns" (
+CREATE TABLE "return" (
   "lateFees" int,
   "damages" int,
   "filmId" char(12),
@@ -103,10 +103,14 @@ CREATE TABLE "returns" (
   "quantityDVD" int,
   "quantityVHS" int,
   "returnId" char(12),
-  PRIMARY KEY ("returnId")
+  PRIMARY KEY ("returnId"),
+	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId"),
+	FOREIGN KEY ("customerId") REFERENCES "customer" ("customerId"),
+	FOREIGN KEY ("employeeId") REFERENCES "employee" ("employeeId")
+
 );
 
-CREATE INDEX "FK" ON  "returns" ("filmId", "storeId", "customerId", "employeeId");
+
 
 CREATE TABLE "inventory" (
   "inventoryId" char(12),
@@ -116,8 +120,11 @@ CREATE TABLE "inventory" (
   "quantityDVD" int,
   "quantityVHS" int,
   "availableCopies" int,
-  PRIMARY KEY ("inventoryId")
+  PRIMARY KEY ("inventoryId"),
+	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId")
+
+
 );
 
-CREATE INDEX "FK" ON  "inventory" ("filmId", "storeId");
+
 

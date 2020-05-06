@@ -2,12 +2,14 @@ CREATE TABLE "customer" (
   "customerId" char(12),
   "firstName" varchar(40),
   "lastName" varchar(40),
-  "address" varchar(40),
   "phone" char(10),
   "transactionId" char(12),
   "filmCount" int,
   "damages" int,
   "flag" boolean,
+  "street" varchar(40),
+  "zipCode" int,
+  "city" varchar(40),
   PRIMARY KEY ("customerId")
 );
 
@@ -51,13 +53,15 @@ CREATE TABLE "employee" (
   "employeeId" char(12),
   "firstName" varchar(40),
   "lastName" varchar(40),
-  "address" varchar(40),
   "phone" char(10),
   "transactionId" char(12),
   "filmCount" int,
   "damages" int,
   "flag" boolean,
   "manager" varchar(40),
+  "street" varchar(40),
+  "zipCode" int,
+  "city" varchar(40),
   PRIMARY KEY ("employeeId")
 );
 

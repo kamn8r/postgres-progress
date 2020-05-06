@@ -1,130 +1,114 @@
-CREATE TABLE "customer" (
-  "customerId" char(12),
-  "firstName" varchar(40),
-  "lastName" varchar(40),
-  "phone" char(10),
-  "transactionId" char(12),
-  "filmCount" int,
-  "damages" int,
-  "flag" boolean,
-  "street" varchar(40),
-  "zipCode" int,
-  "city" varchar(40),
-  PRIMARY KEY ("customerId"),
-	FOREIGN KEY ("transactionId") REFERENCES "transaction" ("transactionId")
-);
+CREATE TABLE customer 
+  ( 
+     customerid    CHAR(12), 
+     firstname     VARCHAR(40), 
+     lastname      VARCHAR(40), 
+     phone         CHAR(10), 
+     transactionid CHAR(12), 
+     filmcount     INT, 
+     damages       INT, 
+     flag          BOOLEAN, 
+     street        VARCHAR(40), 
+     zipcode       INT, 
+     city          VARCHAR(40), 
+     PRIMARY KEY (customerid)
+); 
 
+CREATE TABLE actor 
+  ( 
+     firstname VARCHAR(40), 
+     lastname  VARCHAR(40), 
+     filmid    CHAR(12), 
+     actorid   CHAR(12), 
+     PRIMARY KEY (actorid) 
+); 
 
-CREATE TABLE "actor" (
-  "firstName" varchar(40),
-  "lastName" varchar(40),
-  "filmId" char(12),
-  "actorId" char(12),
-  PRIMARY KEY ("actorId"),
-	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId")
-);
+CREATE TABLE film 
+  ( 
+     title         VARCHAR(40), 
+     filmid        CHAR(12), 
+     storeid       CHAR(12), 
+     distributorid CHAR(12), 
+     rating        INT, 
+     summary       VARCHAR(40), 
+     actorid       CHAR(12), 
+     directorid    CHAR(12), 
+     awards        VARCHAR(40), 
+     PRIMARY KEY (filmid)
+); 
 
+CREATE TABLE director 
+  ( 
+     firstname  VARCHAR(40), 
+     lastname   VARCHAR(40), 
+     filmid     CHAR(12), 
+     directorid CHAR(12), 
+     PRIMARY KEY (directorid)
+); 
 
-CREATE TABLE "film" (
-  "title" varchar(40),
-  "filmId" char(12),
-  "storeid" char(12),
-  "distributorId" char(12),
-  "rating" int,
-  "summary" varchar(40),
-  "actorId" char(12),
-  "directorId" char(12),
-  "awards" varchar(40),
-  PRIMARY KEY ("filmId"),
-	FOREIGN KEY ("actorId") REFERENCES "actor" ("actorId"),
-	FOREIGN KEY ("directorId") REFERENCES "director" ("directorId")
-);
+CREATE TABLE employee 
+  ( 
+     employeeid    CHAR(12), 
+     firstname     VARCHAR(40), 
+     lastname      VARCHAR(40), 
+     phone         CHAR(10), 
+     transactionid CHAR(12), 
+     filmcount     INT, 
+     damages       INT, 
+     flag          BOOLEAN, 
+     manager       VARCHAR(40), 
+     street        VARCHAR(40), 
+     zipcode       INT, 
+     city          VARCHAR(40), 
+     PRIMARY KEY (employeeid)
+); 
 
-CREATE TABLE "director" (
-  "firstName" varchar(40),
-  "lastName" varchar(40),
-  "filmId" char(12),
-  "directorId" char(12)
-	PRIMARY KEY ("directorId"),
-	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId")
-);
+CREATE TABLE genre 
+  ( 
+     category VARCHAR(40), 
+     genreid  CHAR(12), 
+     filmid   CHAR(12), 
+     PRIMARY KEY (genreid) 
+); 
 
+CREATE TABLE transactionx 
+  ( 
+     transactionid   CHAR(12), 
+     storeid         CHAR(12), 
+     transactiondate DATE, 
+     filmid          CHAR(12), 
+     customerid      CHAR(12), 
+     quantitydvd     INT, 
+     quantityvhs     INT, 
+     employeeid      CHAR(12), 
+     paymentamount   INT, 
+     latefees        INT, 
+     PRIMARY KEY (transactionid)
+); 
 
-CREATE TABLE "employee" (
-  "employeeId" char(12),
-  "firstName" varchar(40),
-  "lastName" varchar(40),
-  "phone" char(10),
-  "transactionId" char(12),
-  "filmCount" int,
-  "damages" int,
-  "flag" boolean,
-  "manager" varchar(40),
-  "street" varchar(40),
-  "zipCode" int,
-  "city" varchar(40),
-  PRIMARY KEY ("employeeId"),
-	FOREIGN KEY ("transactionId") REFERENCES "transaction" ("transactionId")
-);
+CREATE TABLE returnx 
+  ( 
+     latefees    INT, 
+     damages     INT, 
+     filmid      CHAR(12), 
+     storeid     CHAR(12), 
+     customerid  CHAR(12), 
+     employeeid  CHAR(12), 
+     quantitydvd INT, 
+     quantityvhs INT, 
+     returnid    CHAR(12), 
+     PRIMARY KEY (returnid)
+); 
 
-CREATE TABLE "genre" (
-  "category" varchar(40),
-  "genreId" char(12),
-	"filmId" char(12),
-  PRIMARY KEY ("genreId")
-	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId")
-);
-
-CREATE TABLE "transaction" (
-  "transactionId" char(12),
-  "storeId" char(12),
-  "transactionDate" date,
-  "filmId" char(12),
-  "customerId" char(12),
-  "quantityDVD" int,
-  "quantityVHS" int,
-  "employeeId" char(12),
-  "paymentAmount" int,
-  "lateFees" int,
-  PRIMARY KEY ("transactionId"),
-	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId"),
-	FOREIGN KEY ("customerId") REFERENCES "customer" ("customerId"),
-	FOREIGN KEY ("employeeId") REFERENCES "employee" ("employeeId")
-);
-
-
-CREATE TABLE "return" (
-  "lateFees" int,
-  "damages" int,
-  "filmId" char(12),
-  "storeId" char(12),
-  "customerId" char(12),
-  "employeeId" char(12),
-  "quantityDVD" int,
-  "quantityVHS" int,
-  "returnId" char(12),
-  PRIMARY KEY ("returnId"),
-	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId"),
-	FOREIGN KEY ("customerId") REFERENCES "customer" ("customerId"),
-	FOREIGN KEY ("employeeId") REFERENCES "employee" ("employeeId")
-
-);
-
-
-
-CREATE TABLE "inventory" (
-  "inventoryId" char(12),
-  "filmId" char(12),
-  "storeId" char(12),
-  "distributorId" char(12),
-  "quantityDVD" int,
-  "quantityVHS" int,
-  "availableCopies" int,
-  PRIMARY KEY ("inventoryId"),
-	FOREIGN KEY ("filmId") REFERENCES "film" ("filmId")
-
-
-);
-
-
+CREATE TABLE inventory 
+  ( 
+     inventoryid     CHAR(12), 
+     filmid          CHAR(12), 
+     storeid         CHAR(12), 
+     distributorid   CHAR(12), 
+     quantitydvd     INT, 
+     quantityvhs     INT, 
+     availablecopies INT, 
+     PRIMARY KEY (inventoryid)
+); 
 

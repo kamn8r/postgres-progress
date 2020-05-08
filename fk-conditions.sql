@@ -3,3 +3,87 @@ FOREIGN KEY (transactionId)
 REFERENCES transactionx (transactionId)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
+
+ALTER TABLE customer ADD CONSTRAINT transactionx_identifier
+FOREIGN KEY (transactionId)
+REFERENCES transactionx (transactionId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE transactionx ADD CONSTRAINT filmId_identifier
+FOREIGN KEY (filmId)
+REFERENCES film (filmId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE transactionx ADD CONSTRAINT customerId_identifier
+FOREIGN KEY (customerId)
+REFERENCES customer (customerId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE transactionx ADD CONSTRAINT employeeId_identifier
+FOREIGN KEY (employeeId)
+REFERENCES employee (employeeId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE film ADD CONSTRAINT actorId_identifier
+FOREIGN KEY (actorId)
+REFERENCES actor (actorId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE film ADD CONSTRAINT directorId_identifier
+FOREIGN KEY (directorId)
+REFERENCES director (directorId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE employee ADD CONSTRAINT transactionId_identifier
+FOREIGN KEY (transactionId)
+REFERENCES transactionx (transactionId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE inventory ADD CONSTRAINT filmId_identifier
+FOREIGN KEY (filmId)
+REFERENCES film (filmId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE director ADD CONSTRAINT filmId_identifier
+FOREIGN KEY (filmId)
+REFERENCES film (filmId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE returnx ADD CONSTRAINT filmId_identifier
+FOREIGN KEY (filmId)
+REFERENCES film (filmId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE returnx ADD CONSTRAINT customerId_identifier
+FOREIGN KEY (customerId)
+REFERENCES customer (customerId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE returnx ADD CONSTRAINT employeeId_identifier
+FOREIGN KEY (employeeId)
+REFERENCES employee (employeeId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE actor ADD CONSTRAINT filmId_identifier
+FOREIGN KEY (filmId)
+REFERENCES film (filmId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE genre ADD CONSTRAINT filmId_identifier
+FOREIGN KEY (filmId)
+REFERENCES film (filmId)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
